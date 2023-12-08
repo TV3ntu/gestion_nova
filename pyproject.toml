@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "gestion_nova"
+version = "0.1.0"
+description = "Sistema de gestion de alumnos y cuotas"
+authors = ["Tomas Venturini <venturini.ta@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+Flask = "^3.0.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
