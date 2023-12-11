@@ -33,14 +33,14 @@ class Member:
         Return the full name of the person
         :return:
         """
-        return f'{self.name} {self.surname}'
+        return f'{self.name}'
 
     def add_profile(self, profile: str) -> None:
         """
         Add a profile to the person
         :param profile:
         """
-        if ProfileEnum.id_a_valid_profile(profile):
+        if ProfileEnum.is_a_valid_profile(profile):
             self.profiles.add(ProfileEnum(profile))
         else:
             print(f'{profile} is not a valid profile. Available profiles: {", ".join(e.value for e in ProfileEnum)}')
@@ -50,7 +50,7 @@ class Member:
         Remove a profile from the person
         :param profile:
         """
-        if ProfileEnum.id_a_valid_profile(profile):
+        if ProfileEnum.is_a_valid_profile(profile):
             self.profiles.remove(ProfileEnum(profile))
         else:
             print(f'{profile} is not a valid profile. Available profiles: {", ".join(e.value for e in ProfileEnum)}')
@@ -61,17 +61,21 @@ class Member:
         :param payment:
         :return:
         """
-        self.payments.append(payment)
+        if payment not in self.payments:
+            self.payments.append(payment)
+        else:
+            print('The payment already exists')
 
-    def make_payment(self, activity: Activity, receiver: Member, date: str) -> None:
+    def make_payment(self, amount: float, activity: Activity, receiver: Member, date: str) -> None:
         """
         Make a payment for an activity
+        :param amount:
         :param receiver:
         :param activity:
         :param date:
         :return:
         """
-        payment = Payment(amount=activity.price,
+        payment = Payment(amount=amount,
                           payer=self,
                           receiver=receiver,
                           activity=activity,
@@ -95,6 +99,13 @@ class Person(Member):
 
     def __eq__(self, other):
         return self.name == other.name and self.surname == other.surname and self.birth_date == other.birth_date
+
+    def full_name(self) -> str:
+        """
+        Return the full name of the person
+        :return:
+        """
+        return f'{self.name} {self.surname}'
 
     def age(self) -> int:
         """

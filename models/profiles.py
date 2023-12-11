@@ -10,7 +10,8 @@ class ProfileEnum(Enum):
     SCHOOL = "School"
     OWNER = "Owner"
 
-    def id_a_valid_profile(self, profile: str) -> bool:
+    @staticmethod
+    def is_a_valid_profile(profile: str) -> bool:
         """
         Check if a profile is valid
         :param profile:
